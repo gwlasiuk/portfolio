@@ -115,18 +115,50 @@ a { color: var(--heading); }
 }
 .button:hover { transform: translateY(-2px); }
 
-/* ---------- Projects ---------- */
-.projects, .contact {
-  max-width: var(--max-width);
-  margin: 0 auto;
-  padding: 3.5rem 1.25rem;
-}
-.projects { display: grid; gap: 3.5rem; }
+/* ---------- Projects: green band, image left, cream card right ---------- */
+.projects { padding-bottom: 1rem; }
 
-.project { display: grid; gap: 1.25rem; }
-.project img { width: 100%; border-radius: var(--radius); }
-.project h3 { font-size: 1.9rem; font-weight: 700; text-transform: uppercase; }
-.project p { margin: 0; max-width: 60ch; }
+.project {
+  background: var(--bg-alt);
+  padding: 2rem 1.25rem;
+  margin-bottom: 2rem;
+}
+.project-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  display: grid;
+  gap: 1.5rem;
+  align-items: center;
+}
+.project-img {
+  width: 100%;
+  max-height: 28rem;
+  object-fit: contain;
+  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.35));
+}
+
+.project-card {
+  background: var(--bg);
+  padding: 1.75rem 1.5rem;
+}
+.project-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.project-head h3 {
+  font-size: clamp(2rem, 7vw, 3.4rem);
+  font-weight: 400;
+  margin: 0;
+}
+/* doodle size: change the two values in clamp() to make it bigger or smaller */
+.doodle {
+  width: clamp(4.5rem, 16vw, 8rem);
+  flex-shrink: 0;
+}
+.project-card p { margin: 0; max-width: 60ch; }
 
 /* ---------- Contact ---------- */
 .contact { text-align: center; }
@@ -150,8 +182,9 @@ footer p { margin: 0; }
   .hero-text { padding: 2.5rem 3rem 3rem; align-self: center; }
   .hero-photo img { min-height: 0; }
 
-  .project { grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
-  .project:nth-child(even) img { order: 2; }
+  .project { padding: 3rem 2.5rem; }
+  .project-inner { grid-template-columns: 1fr 1.2fr; gap: 3rem; }
+  .project-card { padding: 3rem 3.5rem; }
 }
 
 /* ---------- Reduced motion ---------- */

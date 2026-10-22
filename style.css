@@ -1,0 +1,161 @@
+/* ==========================================================
+   THEME: colors and fonts, sampled from the Wix site.
+   Change these values and everything below updates.
+   ========================================================== */
+:root {
+  --bg:          #f3e7d9;   /* cream page background */
+  --bg-alt:      #2b4520;   /* forest green (header, footer) */
+  --on-alt:      #f3e7d9;   /* text on green */
+  --text:        #14180f;   /* body text */
+  --heading:     #2b4520;   /* headings */
+  --button-bg:   #000000;
+  --button-text: #f3e7d9;
+
+  --font-heading: "Fraunces", Georgia, serif;
+  --font-body:    "Mulish", system-ui, sans-serif;
+
+  --max-width: 1100px;
+  --radius: 10px;
+  --button-radius: 18px;
+}
+
+/* ---------- Base (mobile first) ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+img { max-width: 100%; height: auto; display: block; }
+
+h1, h2, h3 {
+  font-family: var(--font-heading);
+  color: var(--heading);
+  line-height: 1.1;
+  margin: 0 0 0.5em;
+}
+
+a { color: var(--heading); }
+
+:focus-visible {
+  outline: 3px solid var(--heading);
+  outline-offset: 3px;
+}
+
+/* ---------- Header (slim green bar) ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.6rem 1.25rem;
+  background: var(--bg-alt);
+  color: var(--on-alt);
+}
+.logo {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  color: var(--on-alt);
+  text-decoration: none;
+}
+.site-header nav { display: flex; gap: 1.25rem; }
+.site-header nav a { color: var(--on-alt); text-decoration: none; font-weight: 600; }
+.site-header nav a:hover { text-decoration: underline; }
+
+/* ---------- Hero: text left, photo right ---------- */
+.hero { display: grid; }
+
+.hero-text {
+  padding: 2rem 1.5rem 3rem;
+  max-width: 40rem;
+}
+.hero-art { width: min(100%, 22rem); margin-left: auto; margin-bottom: -0.5rem; }
+
+.hero h1 {
+  font-size: clamp(2.8rem, 12vw, 5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  margin-bottom: 0.1em;
+}
+.hero h2 {
+  font-size: clamp(1.3rem, 4.5vw, 1.8rem);
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 1.25rem;
+}
+.hero p { max-width: 60ch; }
+
+.hero-photo img {
+  width: 100%;
+  height: 100%;
+  min-height: 14rem;
+  object-fit: cover;
+}
+
+.button {
+  display: inline-block;
+  margin-top: 0.75rem;
+  padding: 0.9rem 3rem;
+  background: var(--button-bg);
+  color: var(--button-text);
+  font-family: var(--font-body);
+  font-weight: 600;
+  text-decoration: none;
+  border-radius: var(--button-radius);
+  transition: transform 0.15s ease;
+}
+.button:hover { transform: translateY(-2px); }
+
+/* ---------- Projects ---------- */
+.projects, .contact {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 3.5rem 1.25rem;
+}
+.projects { display: grid; gap: 3.5rem; }
+
+.project { display: grid; gap: 1.25rem; }
+.project img { width: 100%; border-radius: var(--radius); }
+.project h3 { font-size: 1.9rem; font-weight: 700; text-transform: uppercase; }
+.project p { margin: 0; max-width: 60ch; }
+
+/* ---------- Contact ---------- */
+.contact { text-align: center; }
+.contact p { margin-bottom: 1rem; }
+
+/* ---------- Footer ---------- */
+footer {
+  padding: 1.5rem 1.25rem;
+  text-align: center;
+  background: var(--bg-alt);
+  color: var(--on-alt);
+  font-size: 0.9rem;
+}
+footer p { margin: 0; }
+
+/* ---------- Tablet / desktop ---------- */
+@media (min-width: 800px) {
+  .site-header { padding: 0.6rem 2.5rem; }
+
+  .hero { grid-template-columns: 1fr 1fr; min-height: 38rem; }
+  .hero-text { padding: 2.5rem 3rem 3rem; align-self: center; }
+  .hero-photo img { min-height: 0; }
+
+  .project { grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
+  .project:nth-child(even) img { order: 2; }
+}
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .button { transition: none; }
+}

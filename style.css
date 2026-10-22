@@ -3,27 +3,27 @@
    Change these values and everything below updates.
    ========================================================== */
 :root {
-  --bg:          #f3e7d9;   /* cream page background */
-  --bg-alt:      #2b4520;   /* forest green (header, footer) */
-  --on-alt:      #f3e7d9;   /* text on green */
-  --text:        #14180f;   /* body text */
-  --heading:     #2b4520;   /* headings */
+  --bg:          #f3e7d9;   /* cream */
+  --green:       #2b4520;   /* deep forest green (header, footer, dark cards) */
+  --green-band:  #46572f;   /* lighter olive used for project bands */
+  --on-green:    #f3e7d9;   /* text on green */
+  --text:        #14180f;
+  --heading:     #2b4520;
   --button-bg:   #000000;
   --button-text: #f3e7d9;
 
   --font-heading: "Fraunces", Georgia, serif;
   --font-body:    "Mulish", system-ui, sans-serif;
 
-  --max-width: 1100px;
-  --radius: 10px;
-  --button-radius: 18px;
+  --shadow-card:  0 18px 40px rgba(0, 0, 0, 0.28), 0 4px 10px rgba(0, 0, 0, 0.18);
+  --shadow-image: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.35));
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);   /* slight overshoot = "pop" */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* ---------- Base (mobile first) ---------- */
+/* ---------- Base ---------- */
 *, *::before, *::after { box-sizing: border-box; }
-
 html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
-
 body {
   margin: 0;
   background: var(--bg);
@@ -31,9 +31,10 @@ body {
   font-family: var(--font-body);
   font-size: 1.05rem;
   line-height: 1.7;
+  overflow-x: hidden;           /* animations slide from the sides; never let them cause sideways scroll */
 }
-
-img { max-width: 100%; height: auto; display: block; }
+img, video { max-width: 100%; display: block; }
+img { height: auto; }
 
 h1, h2, h3 {
   font-family: var(--font-heading);
@@ -41,43 +42,26 @@ h1, h2, h3 {
   line-height: 1.1;
   margin: 0 0 0.5em;
 }
-
 a { color: var(--heading); }
+:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
 
-:focus-visible {
-  outline: 3px solid var(--heading);
-  outline-offset: 3px;
-}
-
-/* ---------- Header (slim green bar) ---------- */
+/* ---------- Header ---------- */
 .site-header {
-  position: sticky;
-  top: 0;
-  z-index: 10;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  position: sticky; top: 0; z-index: 10;
+  display: flex; justify-content: space-between; align-items: center;
   padding: 0.6rem 1.25rem;
-  background: var(--bg-alt);
-  color: var(--on-alt);
+  background: var(--green);
+  color: var(--on-green);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
 }
-.logo {
-  font-family: var(--font-heading);
-  font-weight: 700;
-  color: var(--on-alt);
-  text-decoration: none;
-}
+.logo { font-family: var(--font-heading); font-weight: 700; color: var(--on-green); text-decoration: none; }
 .site-header nav { display: flex; gap: 1.25rem; }
-.site-header nav a { color: var(--on-alt); text-decoration: none; font-weight: 600; }
+.site-header nav a { color: var(--on-green); text-decoration: none; font-weight: 600; }
 .site-header nav a:hover { text-decoration: underline; }
 
-/* ---------- Hero: text left, photo right ---------- */
-.hero { display: grid; }
-
-.hero-text {
-  padding: 2rem 1.5rem 3rem;
-  max-width: 40rem;
-}
+/* ---------- Hero ---------- */
+.hero { display: grid; grid-template-columns: minmax(0, 1fr); }
+.hero-text { padding: 2rem 1.5rem 3rem; max-width: 40rem; }
 .hero-art { width: min(100%, 22rem); margin-left: auto; margin-bottom: -0.5rem; }
 
 .hero h1 {
@@ -95,10 +79,8 @@ a { color: var(--heading); }
 .hero p { max-width: 60ch; }
 
 .hero-photo video {
-  display: block;
-  width: 100%;
-  height: 100%;
-  min-height: 14rem;
+  width: 100%; height: 100%;
+  min-height: 15rem;
   object-fit: cover;
 }
 
@@ -108,110 +90,147 @@ a { color: var(--heading); }
   padding: 0.9rem 3rem;
   background: var(--button-bg);
   color: var(--button-text);
-  font-family: var(--font-body);
   font-weight: 600;
   text-decoration: none;
-  border-radius: var(--button-radius);
-  transition: transform 0.15s ease;
+  border-radius: 18px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
+  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
 }
-.button:hover { transform: translateY(-2px); }
+.button:hover { transform: translateY(-3px); box-shadow: 0 12px 22px rgba(0, 0, 0, 0.3); }
 
-/* ---------- Projects: green band, image left, cream card right ---------- */
-.projects { padding-bottom: 1rem; }
+/* ---------- Projects: alternating bands, like the Wix site ---------- */
+.project { padding: 2.5rem 1.25rem; }
+.project--green { background: var(--green-band); }
+.project--cream { background: var(--bg); }
 
-.project {
-  background: var(--bg-alt);
-  padding: 2rem 1.25rem;
-  margin-bottom: 2rem;
-}
 .project-inner {
-  --row-h: 24rem;
-  max-width: 1300px;
+  max-width: 1400px;
   margin: 0 auto;
   display: grid;
-  gap: 1.5rem;
-  align-items: stretch;
+  grid-template-columns: minmax(0, 1fr);   /* phones: one column (image, then card) */
+  gap: 2rem;
+  align-items: center;
 }
+
 .project-img {
   width: 100%;
-  height: auto;
-  max-height: 18rem;
-  align-self: center;
+  max-height: 22rem;
   object-fit: contain;
-  filter: drop-shadow(0 8px 10px rgba(0, 0, 0, 0.35));
+  filter: var(--shadow-image);
 }
 
 .project-card {
-  background: var(--bg);
-  padding: 1.75rem 1.5rem;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+  padding: 2rem 1.5rem;
+  box-shadow: var(--shadow-card);
 }
+.project--green .project-card { background: var(--bg); color: var(--text); }
+.project--cream .project-card { background: var(--green); color: var(--on-green); }
+.project--cream .project-card h3 { color: var(--on-green); }
+/* doodles are green line art; turn them cream on the dark card */
+.project--cream .doodle { filter: brightness(0) invert(1) sepia(0.15); }
+
 .project-head {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: flex; align-items: center; justify-content: space-between;
   gap: 1rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.25rem;
 }
 .project-head h3 {
-  font-size: clamp(2rem, 7vw, 3.4rem);
+  font-size: clamp(2rem, 7vw, 3.6rem);
   font-weight: 400;
   margin: 0;
 }
-/* doodle size: change the two values in clamp() to make it bigger or smaller */
-.doodle {
-  width: clamp(4.5rem, 16vw, 8rem);
-  flex-shrink: 0;
-}
+.doodle { width: clamp(4.5rem, 16vw, 8.5rem); flex-shrink: 0; }
 .project-card p { margin: 0; max-width: 60ch; }
 
 /* ---------- Contact ---------- */
-.contact { text-align: center; }
+.contact { max-width: 1100px; margin: 0 auto; padding: 4rem 1.25rem; text-align: center; }
 .contact p { margin-bottom: 1rem; }
 
 /* ---------- Footer ---------- */
-footer {
-  padding: 1.5rem 1.25rem;
-  text-align: center;
-  background: var(--bg-alt);
-  color: var(--on-alt);
-  font-size: 0.9rem;
-}
+footer { padding: 1.5rem 1.25rem; text-align: center; background: var(--green); color: var(--on-green); font-size: 0.9rem; }
 footer p { margin: 0; }
 
-/* ---------- Tablet / desktop ---------- */
-@media (min-width: 800px) {
+/* ==========================================================
+   DESKTOP / TABLET  (side-by-side layout)
+   ========================================================== */
+@media (min-width: 768px) {
   .site-header { padding: 0.6rem 2.5rem; }
 
-  .hero { grid-template-columns: 1fr 1fr; min-height: 38rem; }
+  .hero { grid-template-columns: repeat(2, minmax(0, 1fr)); min-height: 36rem; }
   .hero-text { padding: 2.5rem 3rem 3rem; align-self: center; }
   .hero-photo video { min-height: 0; }
 
-  .project { padding: 3rem 2.5rem; }
-  /* every project is one row of equal height: image left, card right */
+  .project { padding: 4rem 3rem; }
   .project-inner {
-    grid-template-columns: 1fr 1.2fr;
-    gap: 3rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));   /* image | card, side by side */
+    gap: 3.5rem;
   }
-  /* image sets the minimum row height; the card grows if its text is longer */
-  .project-img { height: var(--row-h); max-height: none; }
-  .project-card { padding: 2rem 3.5rem; }
+  .project-img { max-height: 28rem; }
+  .project-card { padding: 3rem 3.5rem; }
+
+  /* every other project flips: card on the left, image on the right */
+  .project--cream .project-img { order: 2; }
 }
 
-/* ---------- Scroll reveal ---------- */
+@media (min-width: 1200px) {
+  .project { padding: 5rem 4rem; }
+  .project-inner { gap: 5rem; }
+  .project-card { padding: 3.5rem 4rem; }
+}
+
+/* ==========================================================
+   ANIMATION  (only when JS is on; see script in index.html)
+   ========================================================== */
+
+/* --- Hero: staggered pop-in on page load --- */
+@keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+@keyframes pop  { from { opacity: 0; transform: scale(0.5) rotate(-10deg); } to { opacity: 1; transform: none; } }
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+
+.js .hero-art       { animation: pop  0.9s var(--ease-pop) 0.1s backwards; }
+.js .hero h1        { animation: rise 0.8s var(--ease-out) 0.25s backwards; }
+.js .hero h2        { animation: rise 0.8s var(--ease-out) 0.4s backwards; }
+.js .hero-text p    { animation: rise 0.8s var(--ease-out) 0.55s backwards; }
+.js .hero .button   { animation: rise 0.8s var(--ease-out) 0.7s backwards; }
+.js .hero-photo     { animation: fade 1.2s ease 0.2s backwards; }
+
+/* --- Projects: image and card slide in from their own sides --- */
 .js .reveal {
   opacity: 0;
-  transform: translateY(32px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
+  transition: opacity 0.8s var(--ease-out), transform 0.9s var(--ease-out);
+  transform: translateY(40px);
 }
-.js .reveal-delay { transition-delay: 0.15s; }
+@media (min-width: 768px) {
+  .js .project--green .project-img  { transform: translateX(-80px); }
+  .js .project--green .project-card { transform: translateX(80px);  transition-delay: 0.15s; }
+  .js .project--cream .project-img  { transform: translateX(80px); }
+  .js .project--cream .project-card { transform: translateX(-80px); transition-delay: 0.15s; }
+}
+.js .project-card.reveal { transition-delay: 0.15s; }
 .js .reveal.is-visible { opacity: 1; transform: none; }
 
-/* ---------- Reduced motion ---------- */
+/* --- Text inside the card pops in one piece at a time --- */
+.js .project-head h3,
+.js .project-card p {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+.js .doodle {
+  opacity: 0;
+  transform: scale(0.4) rotate(-14deg);
+  transition: opacity 0.5s ease, transform 0.8s var(--ease-pop);
+}
+.js .project-card.is-visible h3     { opacity: 1; transform: none; transition-delay: 0.35s; }
+.js .project-card.is-visible .doodle{ opacity: 1; transform: none; transition-delay: 0.55s; }
+.js .project-card.is-visible p      { opacity: 1; transform: none; transition-delay: 0.7s; }
+
+/* --- Reduced motion: show everything, no movement --- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .js .reveal { opacity: 1; transform: none; transition: none; }
+  .js .hero *, .js .hero-photo { animation: none !important; }
+  .js .reveal, .js .project-head h3, .js .project-card p, .js .doodle {
+    opacity: 1 !important; transform: none !important; transition: none !important;
+  }
   .button { transition: none; }
 }

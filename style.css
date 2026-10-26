@@ -135,12 +135,124 @@ a { color: var(--heading); }
   margin-bottom: 1.25rem;
 }
 .project-head h3 {
-  font-size: clamp(2rem, 7vw, 3.6rem);
+  font-size: clamp(1.9rem, 7vw, 3.6rem);
   font-weight: 400;
   margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
-.doodle { width: clamp(4.5rem, 16vw, 8.5rem); flex-shrink: 0; }
+.doodle { width: clamp(6.5rem, 24vw, 13rem); flex-shrink: 0; }
 .project-card p { margin: 0; max-width: 60ch; }
+
+
+/* ---------- Video / embed in a project slot ---------- */
+.project-video {
+  max-height: none;
+  filter: none;
+  background: #000;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: var(--shadow-card);
+}
+.project-video video,
+.project-video iframe {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  background: #000;
+}
+
+/* ---------- Resume ---------- */
+.resume { background: var(--green); padding: 4rem 1.25rem; }
+.resume-inner { max-width: 1100px; margin: 0 auto; }
+
+.resume-top {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 1rem; margin-bottom: 1.75rem;
+}
+.resume-top h2 { color: var(--on-green); font-size: clamp(2.2rem, 7vw, 3.6rem); font-weight: 400; margin: 0; }
+.button--light { background: var(--bg); color: var(--green); margin-top: 0; }
+
+.sheet {
+  background: #fbf6ee;
+  color: var(--text);
+  padding: 1.75rem 1.5rem 2rem;
+  box-shadow: var(--shadow-card);
+  border-radius: 4px;
+}
+.sheet-head {
+  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+  gap: 0.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 3px solid var(--green);
+}
+.sheet-head h3 { font-size: clamp(1.7rem, 6vw, 2.6rem); text-transform: uppercase; font-weight: 700; margin: 0; }
+.sheet-role { margin: 0; font-size: 1.15rem; }
+.sheet-contact { margin: 0; font-size: 0.95rem; }
+.sheet-contact span { margin: 0 0.4rem; }
+
+.sheet-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; margin-top: 1.75rem; }
+.sheet-side { order: 2; }
+
+.sheet h4 {
+  font-family: var(--font-heading);
+  color: var(--heading);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 1.15rem;
+  margin: 0 0 0.6rem;
+}
+.sheet section + section { margin-top: 1.75rem; }
+:where(.sheet) p { margin: 0 0 0.9rem; }
+
+.chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chips li {
+  background: var(--green);
+  color: var(--on-green);
+  padding: 0.3rem 0.8rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+/* Experience timeline */
+.job { position: relative; padding: 0 0 1.75rem 1.75rem; }
+.job:last-child { padding-bottom: 0; }
+.job::before {                      /* the vertical line */
+  content: ""; position: absolute; left: 5px; top: 0.5rem; bottom: 0;
+  width: 3px; background: var(--green); opacity: 0.35;
+  transform-origin: top; 
+}
+.job:last-child::before { bottom: auto; height: 1.2rem; }
+.job::after {                       /* the dot */
+  content: ""; position: absolute; left: 0; top: 0.45rem;
+  width: 13px; height: 13px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 0 4px #fbf6ee;
+}
+.job h5 { font-family: var(--font-heading); font-size: 1.25rem; margin: 0; color: var(--heading); }
+.job-org { margin: 0.1rem 0 0.6rem; }
+.job-org span { opacity: 0.75; margin-left: 0.4rem; white-space: nowrap; }
+.job ul { margin: 0; padding-left: 1.2rem; }
+.job li { margin-bottom: 0.4rem; }
+
+@media (min-width: 768px) {
+  .resume { padding: 5.5rem 3rem; }
+  .sheet { padding: 2.5rem 3rem 3rem; }
+  .sheet-body { grid-template-columns: 17rem minmax(0, 1fr); gap: 3rem; }
+  .sheet-side { order: 0; padding-right: 2rem; border-right: 3px solid var(--green); }
+}
+
+/* Resume animation: line grows down, dot pops, then text */
+.js .job.reveal { transition-delay: var(--d, 0s); }
+.js .job::before { transform: scaleY(0); transition: transform 0.9s var(--ease-out) calc(var(--d, 0s) + 0.2s); }
+.js .job::after  { transform: scale(0); transition: transform 0.6s var(--ease-pop) calc(var(--d, 0s) + 0.1s); }
+.js .job.is-visible::before,
+.js .job.is-visible::after { transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .js .job::before, .js .job::after { transform: none !important; transition: none !important; }
+}
 
 /* ---------- Contact ---------- */
 .contact { max-width: 1100px; margin: 0 auto; padding: 4rem 1.25rem; text-align: center; }

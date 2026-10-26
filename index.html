@@ -1,482 +1,332 @@
-/* ==========================================================
-   THEME: colors and fonts, sampled from the Wix site.
-   Change these values and everything below updates.
-   ========================================================== */
-:root {
-  --bg:          #f3e7d9;   /* cream */
-  --green:       #2b4520;   /* deep forest green (header, footer, dark cards) */
-  --green-band:  #46572f;
-  --accent:      #ff7a45;   /* bright "campfire" orange for pops of contrast */
-  --on-accent:   #14180f;   /* lighter olive used for project bands */
-  --on-green:    #f3e7d9;   /* text on green */
-  --text:        #14180f;
-  --heading:     #2b4520;
-  --button-bg:   #000000;
-  --button-text: #f3e7d9;
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Greg Wlasiuk | Learning Design Professional</title>
+  <meta name="theme-color" content="#2b4520">
+  <meta name="description" content="Portfolio of Greg Wlasiuk, learning design professional. Engaging, practical training that blends marketing-style design with educational content.">
 
-  --font-heading: "Fraunces", Georgia, serif;
-  --font-body:    "Mulish", system-ui, sans-serif;
+  <!-- Favicon: a compass emoji, no file needed. Swap for your own icon file any time. -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Ctext y=%27.9em%27 font-size=%2790%27%3E%F0%9F%A7%AD%3C/text%3E%3C/svg%3E">
 
-  --shadow-card:  0 18px 40px rgba(0, 0, 0, 0.28), 0 4px 10px rgba(0, 0, 0, 0.18);
-  --shadow-image: drop-shadow(0 16px 18px rgba(0, 0, 0, 0.35));
-  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);   /* slight overshoot = "pop" */
-  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-/* ---------- Base ---------- */
-*, *::before, *::after { box-sizing: border-box; }
-html { scroll-behavior: smooth; scroll-padding-top: 4rem; }
-body {
-  margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family: var(--font-body);
-  font-size: 1.05rem;
-  line-height: 1.7;
-  overflow-x: hidden;           /* animations slide from the sides; never let them cause sideways scroll */
-}
-img, video { max-width: 100%; display: block; }
-img { height: auto; }
-
-h1, h2, h3 {
-  font-family: var(--font-heading);
-  color: var(--heading);
-  line-height: 1.1;
-  margin: 0 0 0.5em;
-}
-a { color: var(--heading); }
-:focus-visible { outline: 3px solid currentColor; outline-offset: 3px; }
-
-/* ---------- Header ---------- */
-.site-header {
-  position: sticky; top: 0; z-index: 10;
-  display: flex; justify-content: space-between; align-items: center;
-  padding: 0.6rem 1.25rem;
-  background: var(--green);
-  color: var(--on-green);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
-  border-bottom: 3px solid var(--accent);
-}
-.logo { font-family: var(--font-heading); font-weight: 700; color: var(--on-green); text-decoration: none; }
-.site-header nav { display: flex; gap: 1.25rem; }
-.site-header nav a { color: var(--on-green); text-decoration: none; font-weight: 600; }
-.site-header nav a:hover { text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 3px; text-underline-offset: 6px; }
-
-/* ---------- Hero ---------- */
-.hero { display: grid; grid-template-columns: minmax(0, 1fr); }
-.hero-text { padding: 2rem 1.5rem 3rem; max-width: 40rem; }
-.hero-art { width: min(100%, 22rem); margin-left: auto; margin-bottom: -0.5rem; }
-
-.hero h1 {
-  font-size: clamp(2.8rem, 12vw, 5rem);
-  font-weight: 700;
-  text-transform: uppercase;
-  margin-bottom: 0.1em;
-}
-.hero h2 {
-  font-size: clamp(1.3rem, 4.5vw, 1.8rem);
-  font-weight: 400;
-  color: var(--text);
-  margin-bottom: 1.25rem;
-}
-.hero p { max-width: 60ch; }
-
-/* Full-bleed hero video: fills the whole panel, no border (like a background-size: cover image) */
-.hero-photo {
-  position: relative;
-  overflow: hidden;
-  background: #000;
-  aspect-ratio: 16 / 9;            /* phones: a full-width 16:9 band */
-  container-type: size;            /* lets the iframe size itself to the panel (cqw / cqh units) */
-}
-.hero-frame { position: absolute; inset: 0; }
-.hero-frame iframe {
-  position: absolute; top: 50%; left: 50%;
-  transform: translate(-50%, -50%);
-  width: 100%; height: 100%;                      /* fallback */
-  width:  max(100cqw, calc(100cqh * 16 / 9));     /* scale up until it covers the panel */
-  height: max(100cqh, calc(100cqw * 9 / 16));
-  border: 0;
-  pointer-events: none;                           /* decorative loop: no player controls popping up on hover */
-}
-
-.button {
-  display: inline-block;
-  margin-top: 0.75rem;
-  padding: 0.9rem 3rem;
-  background: var(--button-bg);
-  color: var(--button-text);
-  font-weight: 600;
-  text-decoration: none;
-  border-radius: 18px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25);
-  transition: transform 0.2s var(--ease-out), box-shadow 0.2s var(--ease-out);
-}
-.button:hover { transform: translateY(-3px); box-shadow: 0 12px 22px rgba(0, 0, 0, 0.3); background: var(--accent); color: var(--on-accent); }
-
-/* ---------- Projects: alternating bands, like the Wix site ---------- */
-.project { padding: 2.5rem 1.25rem; }
-.project--green { background: var(--green-band); }
-.project--cream { background: var(--bg); }
-
-.project-inner {
-  max-width: 1400px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);   /* phones: one column (image, then card) */
-  gap: 2rem;
-  align-items: center;
-}
-
-.project-img {
-  width: 100%;
-  max-height: 22rem;
-  object-fit: contain;
-  filter: var(--shadow-image);
-}
-
-.project-card {
-  padding: 2rem 1.5rem;
-  box-shadow: var(--shadow-card);
-  container-type: inline-size;      /* lets the title size itself to the card, not the screen */
-  border-top: 6px solid var(--accent);
-}
-.project--green .project-card { background: var(--bg); color: var(--text); }
-.project--cream .project-card { background: var(--green); color: var(--on-green); }
-.project--cream .project-card h3 { color: var(--on-green); }
-/* doodles are green line art; turn them cream on the dark card */
-.project--cream .doodle { filter: brightness(0) invert(1) sepia(0.15); }
-
-.project-head {
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 1rem;
-  margin-bottom: 1.25rem;
-}
-.project-head h3 {
-  font-size: clamp(1.6rem, 8.5cqi, 3.6rem);
-  font-weight: 400;
-  margin: 0;
-  min-width: 0;
-  /* wrap between words only, never inside one */
-  overflow-wrap: normal;
-  word-break: keep-all;
-  hyphens: none;
-  text-wrap: balance;
-}
-.doodle { flex: 0 0 clamp(5.5rem, 32%, 13rem); width: clamp(5.5rem, 32%, 13rem); }
-.project-card p { margin: 0; max-width: 60ch; }
+  <!-- Link-preview tags (LinkedIn, Slack, iMessage...) -->
+  <link rel="canonical" href="https://gwlasiuk.github.io/portfolio/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Greg Wlasiuk | Learning Design Professional">
+  <meta property="og:description" content="Engaging, practical training that blends marketing-style design with educational content.">
+  <meta property="og:url" content="https://gwlasiuk.github.io/portfolio/">
+  <!-- Add a 1200x630 image to your repo, then uncomment these two lines:
+  <meta property="og:image" content="https://gwlasiuk.github.io/portfolio/social-preview.png">
+  <meta name="twitter:card" content="summary_large_image"> -->
 
 
-/* ---------- Video / embed in a project slot ---------- */
-.project-video {
-  max-height: none;
-  filter: none;
-  background: #000;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: var(--shadow-card);
-}
-.project-video video,
-.project-video iframe {
-  display: block;
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border: 0;
-  background: #000;
-}
+  <!-- FONTS: Fraunces (serif headings) + Mulish (body) approximate the Wix fonts. Swap here and in style.css. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,700&family=Mulish:wght@400;600&display=swap" rel="stylesheet">
+
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="stylesheet" href="style.css?v=9">
+</head>
+<body>
+
+  <header class="site-header">
+    <a class="logo" href="#top">Greg Wlasiuk</a>
+    <nav aria-label="Main">
+      <a href="#projects">Projects</a>
+      <a href="#resume">Resume</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </header>
+
+  <main id="top">
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-text">
+        <img class="hero-art"
+             src="https://gwlasiuk.github.io/portfolio/doodle%201.gif"
+             alt="">
+        <h1>Greg Wlasiuk</h1>
+        <h2>Learning Design Professional</h2>
+        <p>
+          My goal is to fuse the engaging design of marketing and outreach materials with
+          educational content to create captivating training. I love educational presentations
+          that are both charming and entertaining while still being useful and practical. I enjoy
+          making to-the-point training that can be used as an instructional tool while also being
+          a pleasure to experience.
+        </p>
+        <a class="button" href="#projects">View Projects</a>
+      </div>
+      <div class="hero-photo">
+        <div class="hero-frame">
+          <iframe src="https://player.vimeo.com/video/1239595251?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;background=1"
+                  title="Portfolio highlight reel"
+                  allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                  referrerpolicy="strict-origin-when-cross-origin"
+                  allowfullscreen></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
+    <section id="projects" class="projects">
+
+      <article class="project project--green">
+        <div class="project-inner">
+          <div class="project-img collage reveal">
+            <img class="collage-back collage-almanac" style="--rot:-9deg; --d:0.5s"
+                 src="https://gwlasiuk.github.io/portfolio/almanac_button.png" alt="" loading="lazy">
+            <img class="collage-back collage-agenda" style="--rot:7deg; --d:0.7s"
+                 src="https://gwlasiuk.github.io/portfolio/agenda_growbiz-no.png" alt="" loading="lazy">
+            <img class="collage-main" src="https://static.wixstatic.com/media/80cd92_67159a1f9a74439aa71c7cd28a596199~mv2.gif"
+                 alt="Manager Basecamp landing page, Almanac and Campfire Cards" loading="lazy">
+          </div>
+          <div class="project-card reveal">
+            <div class="project-head">
+              <h3>Manager Basecamp</h3>
+              <img class="doodle" src="https://gwlasiuk.github.io/portfolio/doodle%202.gif" alt="" loading="lazy">
+            </div>
+            <p>Winner of the Docebo Inspire award for best UX/UI design. This project involved creating a new manager development program for hundreds of new and existing managers within the organization, including the design of the program's landing pages, self-paced courses, PDF flipbook reference guide, and video interviews of current leaders.</p>
+            <ul class="stats">
+              <li>Docebo Inspire award winner</li>
+              <li>200+ completions</li>
+              <li>Landing pages, courses &amp; video</li>
+            </ul>
+            <!-- To add a link to this project, uncomment and edit:
+            <a class="button project-link" href="YOUR-LINK-HERE">View project</a> -->
+          </div>
+        </div>
+      </article>
+
+      <article class="project project--cream">
+        <div class="project-inner">
+          <div class="project-img collage collage--onboarding reveal">
+            <img class="collage-main" src="https://static.wixstatic.com/media/80cd92_a8e2a217e1774b94b665a447cbc4becd~mv2.gif"
+                 alt="Employee onboarding program screens" loading="lazy">
+            <img class="collage-back collage-postcard" style="--rot:5deg; --d:0.6s"
+                 src="https://gwlasiuk.github.io/portfolio/newonboarding_postcard.gif"
+                 alt="Animated welcome postcard for new employees" loading="lazy">
+          </div>
+          <div class="project-card reveal">
+            <div class="project-head">
+              <h3>Employee Onboarding</h3>
+              <img class="doodle" src="https://gwlasiuk.github.io/portfolio/doodle%203.gif" alt="" loading="lazy">
+            </div>
+            <p>Featured at DevLearn Demofest 2024, this project spans the entire employee onboarding process from receiving a welcome postcard and invitation to learning, ILT and video-integrated orientation, and finally an interactive activity and course-based, self-paced onboarding program. This program seeks to give employees a cohesive message on organizational culture and purpose, while also being uplifting and fun.</p>
+            <ul class="stats">
+              <li>1,000+ new hires welcomed</li>
+              <li>DevLearn Demofest 2024</li>
+            </ul>
+            <!-- To add a link to this project, uncomment and edit:
+            <a class="button project-link" href="YOUR-LINK-HERE">View project</a> -->
+          </div>
+        </div>
+      </article>
+
+      <article class="project project--green">
+        <div class="project-inner">
+          <div class="project-img project-video reveal">
+            <iframe src="https://player.vimeo.com/video/1030132496?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                    title="Cashier training: bagging practice"
+                    loading="lazy"
+                    allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+          <div class="project-card reveal">
+            <div class="project-head">
+              <h3>Cashier Training</h3>
+              <img class="doodle" src="https://gwlasiuk.github.io/portfolio/doodle%204.gif" alt="" loading="lazy">
+            </div>
+            <p>This comprehensive learning program trained 5,000+ cashiers across multiple stores on essential practices and duties such as handling money, bagging, customer and employee safety, self check-out maintenance, and different transaction types. I created an interactive, virtual cashier terminal that simulated the ones being used in stores so employees could practice ringing up a variety of transactions.</p>
+            <ul class="stats">
+              <li>5,000+ cashiers trained</li>
+              <li>Interactive terminal simulation</li>
+            </ul>
+            <!-- To add a link to this project, uncomment and edit:
+            <a class="button project-link" href="YOUR-LINK-HERE">View project</a> -->
+          </div>
+        </div>
+      </article>
+
+      <article class="project project--cream">
+        <div class="project-inner">
+          <div class="project-img project-video reveal">
+            <iframe src="https://www.youtube.com/embed/n4ET65McHFs"
+                    title="Small Growers Outreach video"
+                    loading="lazy"
+                    allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                    referrerpolicy="strict-origin-when-cross-origin"
+                    allowfullscreen></iframe>
+          </div>
+          <div class="project-card reveal">
+            <div class="project-head">
+              <h3>Small Growers Outreach</h3>
+              <img class="doodle" src="https://raw.githubusercontent.com/gwlasiuk/portfolio/refs/heads/main/doodle5.gif" alt="" loading="lazy">
+            </div>
+            <p>Partnering with University of California Davis, this program aimed to teach thousands of small farmers statewide about current food safety and security regulations through accessible online courses and train-the-trainer slide decks. It not only taught food-safe practices, such as water sampling, but also explored emerging technologies and trends in agriculture.</p>
+            <ul class="stats">
+              <li>Thousands of farmers reached</li>
+              <li>UC Davis partnership</li>
+            </ul>
+            <!-- To add a link to this project, uncomment and edit:
+            <a class="button project-link" href="YOUR-LINK-HERE">View project</a> -->
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- RESUME -->
+    <section id="resume" class="resume">
+      <div class="resume-inner">
+        <div class="resume-top reveal">
+          <h2>Resume</h2>
+          <a class="button button--light" href="Gregory_Wlasiuk_Resume_2026.pdf" download>Download PDF</a>
+        </div>
+
+        <div class="sheet reveal">
+          <header class="sheet-head">
+            <div>
+              <h3>Gregory Wlasiuk</h3>
+              <p class="sheet-role">Learning Design Professional</p>
+            </div>
+            <p class="sheet-contact">
+              <a href="mailto:gregwlasiuk@gmail.com">gregwlasiuk@gmail.com</a>
+              <span aria-hidden="true">&middot;</span>
+              West Sacramento, CA
+            </p>
+          </header>
+
+          <div class="sheet-body">
+
+            <aside class="sheet-side">
+              <section>
+                <h4>Education</h4>
+                <p><strong>M.A. English Literature &amp; Creative Writing</strong><br>University of California, Davis</p>
+                <p><strong>B.A. English Literature &amp; Japanese</strong><br>University of California, Davis</p>
+              </section>
+
+              <section>
+                <h4>Key Skills</h4>
+                <ul class="chips">
+                  <li>LMS Administration &amp; Design</li>
+                  <li>Project Management</li>
+                  <li>Articulate, Adobe</li>
+                  <li>AI Training / AI Tools</li>
+                  <li>Video, eLearning, ILT</li>
+                  <li>Curriculum Design</li>
+                </ul>
+              </section>
+
+              <section>
+                <h4>Events &amp; Awards</h4>
+                <p><strong>Docebo Inspire Learning Award:</strong><br>Best UX/UI Design (2025)</p>
+                <p><strong>DevLearn Demofest</strong><br>Presenter (2024)</p>
+                <p><strong>Docebo Inspire</strong><br>Presenter (2023, 2025)</p>
+                <p><strong>Docebo Webinar Series</strong><br>Presenter (2024, 2025)</p>
+              </section>
+            </aside>
+
+            <div class="sheet-main">
+              <section>
+                <h4>Professional Profile</h4>
+                <p>
+                  I am an enthusiastic and focused instructional designer and learning design
+                  professional with a focus on emerging technologies. My goal is to fuse the engaging
+                  design of marketing and outreach materials with educational content to create
+                  captivating training. I enjoy making to-the-point training programs that function
+                  as an essential instructional tool while also being a pleasure to experience.
+                </p>
+              </section>
+
+              <section>
+                <h4>Experience</h4>
+
+                <article class="job reveal" style="--d:0s">
+                  <h5>Senior Learning Technologist</h5>
+                  <p class="job-org"><strong>Tripadvisor</strong> <span>2022 &ndash; Present</span></p>
+                  <p>Administers development and training for over 3,000 employees, including creation of video content, the upkeep and design of our training platform, and relationships with vendors.</p>
+                  <ul>
+                    <li>Designed an award-winning Manager Development Program including videos, training materials, and landing pages with over 200 successful completions</li>
+                    <li>Implemented interactive orientation and onboarding programs welcoming over 1,000 new employees into the business</li>
+                  </ul>
+                </article>
+
+                <article class="job reveal" style="--d:0.1s">
+                  <h5>Learning and Development Specialist</h5>
+                  <p class="job-org"><strong>Raley&rsquo;s / Bel Air / Nob Hill</strong> <span>2020 &ndash; 2022</span></p>
+                  <p>Developed over 50 hours and 30 modules of training materials for over 13,000 corporate and store-based employees using video, illustrations, learning guides, and online courses.</p>
+                  <ul>
+                    <li>Improved upon extensive library of existing courses by redesigning content, reassessing goals, applying current design practices, and effectively using video, interactions, and microlearning theory.</li>
+                  </ul>
+                </article>
+
+                <article class="job reveal" style="--d:0.2s">
+                  <h5>Instructional Designer</h5>
+                  <p class="job-org"><strong>Western Institute for Food Safety and Security, UC Davis</strong> <span>2015 &ndash; 2020</span></p>
+                  <p>Partnered with specialists in fields ranging from biotechnology, veterinary science, and disaster response to communicate scientific research to farmers, dairy producers, and undergraduates.</p>
+                  <ul>
+                    <li>Created educational and promotional materials including videos, presentations, and online courses for far-reaching programs such as FSMA and NADPRP, training a new generation of food-safe farmers and agricultural professionals.</li>
+                  </ul>
+                </article>
+              </section>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT (edit or delete) -->
+    <section id="contact" class="contact reveal">
+      <h2>Get in touch</h2>
+      <p>Want to talk about a training project?</p>
+      <div class="contact-actions">
+        <a class="button" href="mailto:gregwlasiuk@gmail.com">Email Greg</a>
+        <a class="button button--outline" href="Gregory_Wlasiuk_Resume_2026.pdf" download>Download Resume</a>
+        <a class="button button--outline" href="https://www.linkedin.com/in/greg-wlasiuk" rel="noopener" target="_blank">LinkedIn</a>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <p>&copy; Greg Wlasiuk &middot; <a href="https://www.linkedin.com/in/greg-wlasiuk" rel="noopener" target="_blank">LinkedIn</a> &middot; <a href="mailto:gregwlasiuk@gmail.com">Email</a></p>
+  </footer>
 
 
-/* ---------- Basecamp collage: gif in front, two images popping in behind ---------- */
-.collage {
-  position: relative;
-  max-height: none;
-  filter: none;
-  aspect-ratio: 5 / 4;
-  width: 100%;
-}
-.collage img { position: absolute; height: auto; }
+  <script>
+    // Fade/slide elements in as they scroll into view
+    (function () {
+      var items = document.querySelectorAll(".reveal");
+      var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-.collage-main {                 /* the animated gif: front, bottom-right */
-  right: 0; bottom: 0;
-  width: 65%;
-  z-index: 3;
-  filter: var(--shadow-image);
-}
-.collage-back { filter: var(--shadow-image); }
-.collage-almanac { left: 0;   top: 1%; width: 52%; z-index: 1; }   /* big book, far left */
-.collage-agenda  { left: 49%; top: 0;  width: 32%; z-index: 2; }   /* card, tucked behind the gif */
+      if (reduce || !("IntersectionObserver" in window)) {
+        items.forEach(function (el) { el.classList.add("is-visible"); });
+      } else {
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.15 });
+        items.forEach(function (el) { io.observe(el); });
+      }
 
-/* pop-in: start small and spinning, overshoot into a slight tilt */
-.js .collage-back {
-  opacity: 0;
-  transform: scale(0.2) rotate(calc(var(--rot) - 40deg));
-  transition: opacity 0.4s ease var(--d, 0.5s),
-              transform 0.9s var(--ease-pop) var(--d, 0.5s);
-}
-.js .collage.is-visible .collage-back { opacity: 1; transform: rotate(var(--rot)); }
-
-/* little wiggle on hover */
-@media (hover: hover) {
-  .js .collage.is-visible:hover .collage-almanac { transition-delay: 0s; transform: rotate(calc(var(--rot) - 4deg)) translate(-6px, -8px); }
-  .js .collage.is-visible:hover .collage-agenda  { transition-delay: 0s; transform: rotate(calc(var(--rot) + 4deg)) translate(6px, -8px); }
-}
-
-
-/* Onboarding variant: tall gif at right, postcard tucked behind it at left.
-   Both are sized by HEIGHT (the main gif is portrait), so they always fit the box. */
-.collage--onboarding { aspect-ratio: 5 / 4; }
-.collage--onboarding .collage-main {
-  left: auto; right: 2%; top: 4%; bottom: auto;
-  height: 92%; width: auto; max-width: none;
-  z-index: 2;
-}
-.collage--onboarding .collage-postcard {
-  left: 0; right: auto; top: 14%; bottom: auto;
-  height: 74%; width: auto; max-width: none;
-  z-index: 1;
-}
-@media (hover: hover) {
-  .js .collage--onboarding.is-visible:hover .collage-postcard { transition-delay: 0s; transform: rotate(calc(var(--rot) - 4deg)) translate(-8px, 6px); }
-}
-
-/* ---------- Resume ---------- */
-.resume { background: var(--green); padding: 4rem 1.25rem; }
-.resume-inner { max-width: 1100px; margin: 0 auto; }
-
-.resume-top {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-  gap: 1rem; margin-bottom: 1.75rem;
-}
-.resume-top h2 { color: var(--on-green); font-size: clamp(2.2rem, 7vw, 3.6rem); font-weight: 400; margin: 0; }
-.button--light { background: var(--bg); color: var(--green); margin-top: 0; }
-
-.sheet {
-  background: #fbf6ee;
-  color: var(--text);
-  padding: 1.75rem 1.5rem 2rem;
-  box-shadow: var(--shadow-card);
-  border-radius: 4px;
-}
-.sheet-head {
-  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
-  gap: 0.75rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 3px solid var(--green);
-}
-.sheet-head h3 { font-size: clamp(1.7rem, 6vw, 2.6rem); text-transform: uppercase; font-weight: 700; margin: 0; }
-.sheet-role { margin: 0; font-size: 1.15rem; }
-.sheet-contact { margin: 0; font-size: 0.95rem; }
-.sheet-contact span { margin: 0 0.4rem; }
-
-.sheet-body { display: grid; grid-template-columns: minmax(0, 1fr); gap: 2rem; margin-top: 1.75rem; }
-.sheet-side { order: 2; }
-
-.sheet h4 {
-  display: inline-block;
-  border-bottom: 3px solid var(--accent);
-  padding-bottom: 0.1rem;
-  font-family: var(--font-heading);
-  color: var(--heading);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-size: 1.15rem;
-  margin: 0 0 0.6rem;
-}
-.sheet section + section { margin-top: 1.75rem; }
-:where(.sheet) p { margin: 0 0 0.9rem; }
-
-.chips { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
-.chips li {
-  background: var(--green);
-  color: var(--on-green);
-  padding: 0.3rem 0.8rem;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  line-height: 1.4;
-}
-
-/* Experience timeline */
-.job { position: relative; padding: 0 0 1.75rem 1.75rem; }
-.job:last-child { padding-bottom: 0; }
-.job::before {                      /* the vertical line */
-  content: ""; position: absolute; left: 5px; top: 0.5rem; bottom: 0;
-  width: 3px; background: var(--green); opacity: 0.35;
-  transform-origin: top; 
-}
-.job:last-child::before { bottom: auto; height: 1.2rem; }
-.job::after {                       /* the dot */
-  content: ""; position: absolute; left: 0; top: 0.45rem;
-  width: 13px; height: 13px; border-radius: 50%;
-  background: var(--accent); box-shadow: 0 0 0 4px #fbf6ee, 0 0 0 6px var(--green);
-}
-.job h5 { font-family: var(--font-heading); font-size: 1.25rem; margin: 0; color: var(--heading); }
-.job-org { margin: 0.1rem 0 0.6rem; }
-.job-org span { opacity: 0.75; margin-left: 0.4rem; white-space: nowrap; }
-.job ul { margin: 0; padding-left: 1.2rem; }
-.job li { margin-bottom: 0.4rem; }
-
-@media (min-width: 768px) {
-  .resume { padding: 5.5rem 3rem; }
-  .sheet { padding: 2.5rem 3rem 3rem; }
-  .sheet-body { grid-template-columns: 17rem minmax(0, 1fr); gap: 3rem; }
-  .sheet-side { order: 0; padding-right: 2rem; border-right: 3px solid var(--green); }
-}
-
-/* Resume animation: line grows down, dot pops, then text */
-.js .job.reveal { transition-delay: var(--d, 0s); }
-.js .job::before { transform: scaleY(0); transition: transform 0.9s var(--ease-out) calc(var(--d, 0s) + 0.2s); }
-.js .job::after  { transform: scale(0); transition: transform 0.6s var(--ease-pop) calc(var(--d, 0s) + 0.1s); }
-.js .job.is-visible::before,
-.js .job.is-visible::after { transform: none; }
-
-@media (prefers-reduced-motion: reduce) {
-  .js .job::before, .js .job::after { transform: none !important; transition: none !important; }
-}
-
-
-/* ---------- Stat chips on project cards ---------- */
-.stats { list-style: none; padding: 0; margin: 1.5rem 0 0; display: flex; flex-wrap: wrap; gap: 0.6rem; }
-.stats li {
-  padding: 0.35rem 0.9rem;
-  border-radius: 999px;
-  font-size: 0.9rem;
-  font-weight: 700;
-  line-height: 1.4;
-}
-.stats li { background: var(--accent); color: var(--on-accent); }
-
-.js .stats li { opacity: 0; transform: scale(0.6); transition: opacity 0.4s ease, transform 0.6s var(--ease-pop); }
-.js .project-card.is-visible .stats li { opacity: 1; transform: none; }
-.js .project-card.is-visible .stats li:nth-child(1) { transition-delay: 0.95s; }
-.js .project-card.is-visible .stats li:nth-child(2) { transition-delay: 1.05s; }
-.js .project-card.is-visible .stats li:nth-child(3) { transition-delay: 1.15s; }
-
-/* optional "View project" link (see commented example in index.html) */
-.project-link { margin-top: 1.25rem; padding: 0.7rem 1.8rem; }
-.project--cream .project-link { background: var(--bg); color: var(--green); }
-
-/* ---------- Contact buttons ---------- */
-.contact-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.75rem; }
-.contact-actions .button { margin-top: 0; }
-.button--outline { background: transparent; color: var(--text); box-shadow: none; border: 2px solid var(--text); padding: calc(0.9rem - 2px) calc(3rem - 2px); }
-.button--outline:hover { background: var(--accent); color: var(--on-accent); border-color: var(--accent); box-shadow: none; }
-
-/* ---------- Contact ---------- */
-.contact { max-width: 1100px; margin: 0 auto; padding: 4rem 1.25rem; text-align: center; }
-.contact p { margin-bottom: 1rem; }
-
-/* ---------- Footer ---------- */
-footer { padding: 1.5rem 1.25rem; text-align: center; background: var(--green); color: var(--on-green); font-size: 0.9rem; }
-footer p { margin: 0; }
-footer a { color: var(--on-green); text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 4px; }
-footer a:hover { color: var(--accent); }
-
-/* ==========================================================
-   DESKTOP / TABLET  (side-by-side layout)
-   ========================================================== */
-@media (min-width: 768px) {
-  .site-header { padding: 0.6rem 2.5rem; }
-
-  .hero { grid-template-columns: repeat(2, minmax(0, 1fr)); min-height: 36rem; }
-  .hero-text { padding: 2.5rem 3rem 3rem; align-self: center; }
-  .hero-photo { aspect-ratio: auto; }
-
-}
-
-@media (min-width: 900px) {
-  .project { padding: 4rem 3rem; }
-  .project-inner {
-    grid-template-columns: repeat(2, minmax(0, 1fr));   /* image | card, side by side */
-    gap: 3.5rem;
-  }
-  .project-img { max-height: 28rem; }
-  .project-card { padding: 2.5rem 2.25rem; }
-
-  /* every other project flips: card on the left, image on the right */
-  .project--cream .project-img { order: 2; }
-}
-
-@media (min-width: 1100px) {
-  .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); }   /* slightly wider video */
-}
-
-@media (min-width: 1200px) {
-  .project { padding: 5rem 4rem; }
-  .project-inner { gap: 5rem; }
-  .project-card { padding: 3.5rem 4rem; }
-}
-
-/* ==========================================================
-   ANIMATION  (only when JS is on; see script in index.html)
-   ========================================================== */
-
-/* --- Hero: staggered pop-in on page load --- */
-@keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
-@keyframes pop  { from { opacity: 0; transform: scale(0.5) rotate(-10deg); } to { opacity: 1; transform: none; } }
-@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
-
-.js .hero-art       { animation: pop  0.9s var(--ease-pop) 0.1s backwards; }
-.js .hero h1        { animation: rise 0.8s var(--ease-out) 0.25s backwards; }
-.js .hero h2        { animation: rise 0.8s var(--ease-out) 0.4s backwards; }
-.js .hero-text p    { animation: rise 0.8s var(--ease-out) 0.55s backwards; }
-.js .hero .button   { animation: rise 0.8s var(--ease-out) 0.7s backwards; }
-.js .hero-photo     { animation: fade 1.2s ease 0.2s backwards; }
-
-/* --- Projects: image and card slide in from their own sides --- */
-.js .reveal {
-  opacity: 0;
-  transition: opacity 0.8s var(--ease-out), transform 0.9s var(--ease-out);
-  transform: translateY(40px);
-}
-@media (min-width: 900px) {
-  .js .project--green .project-img  { transform: translateX(-80px); }
-  .js .project--green .project-card { transform: translateX(80px);  transition-delay: 0.15s; }
-  .js .project--cream .project-img  { transform: translateX(80px); }
-  .js .project--cream .project-card { transform: translateX(-80px); transition-delay: 0.15s; }
-}
-.js .project-card.reveal { transition-delay: 0.15s; }
-.js .reveal.is-visible { opacity: 1; transform: none; }
-
-/* --- Text inside the card pops in one piece at a time --- */
-.js .project-head h3,
-.js .project-card p {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
-}
-.js .doodle {
-  opacity: 0;
-  transform: scale(0.4) rotate(-14deg);
-  transition: opacity 0.5s ease, transform 0.8s var(--ease-pop);
-}
-.js .project-card.is-visible h3     { opacity: 1; transform: none; transition-delay: 0.35s; }
-.js .project-card.is-visible .doodle{ opacity: 1; transform: none; transition-delay: 0.55s; }
-.js .project-card.is-visible p      { opacity: 1; transform: none; transition-delay: 0.7s; }
-
-/* --- Reduced motion: show everything, no movement --- */
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .js .stats li { opacity: 1 !important; transform: none !important; transition: none !important; }
-  .js .collage-back { opacity: 1 !important; transform: rotate(var(--rot)) !important; transition: none !important; }
-  .js .hero *, .js .hero-photo { animation: none !important; }
-  .js .reveal, .js .project-head h3, .js .project-card p, .js .doodle {
-    opacity: 1 !important; transform: none !important; transition: none !important;
-  }
-  .button { transition: none; }
-}
-
-/* ==========================================================
-   PRINT: Ctrl/Cmd+P prints just the resume, cleanly
-   ========================================================== */
-@media print {
-  @page { margin: 0.6in; }
-  body { background: #fff; font-size: 11pt; }
-  .site-header, .hero, .projects, .contact, footer, .resume-top { display: none !important; }
-  .resume { background: #fff; padding: 0; }
-  .sheet { background: #fff; box-shadow: none; padding: 0; }
-  .js .reveal { opacity: 1 !important; transform: none !important; }
-  .js .job::before, .js .job::after { transform: none !important; }
-  .chips li { background: none; color: #000; border: 1px solid var(--green); }
-  .job { break-inside: avoid; }
-  a { color: #000; text-decoration: none; }
-}
+      // Don't autoplay the hero video for people who prefer reduced motion
+      if (reduce) {
+        var f = document.querySelector(".hero-frame iframe");
+        if (f) {
+          f.src = f.src.replace("autoplay=1", "autoplay=0").replace("loop=1", "loop=0").replace("&background=1", "");
+          f.style.pointerEvents = "auto";   // let them press play
+        }
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -150,7 +150,7 @@ a { color: var(--heading); }
   hyphens: none;
   text-wrap: balance;
 }
-.doodle { flex: 0 0 clamp(5.5rem, 32%, 13rem); width: clamp(5.5rem, 32%, 13rem); }
+.doodle { flex: 0 0 clamp(5.5rem, 35%, 13rem); width: clamp(5.5rem, 35%, 13rem); }
 .project-card p { margin: 0; max-width: 60ch; }
 
 
@@ -206,6 +206,15 @@ a { color: var(--heading); }
 @media (hover: hover) {
   .js .collage.is-visible:hover .collage-almanac { transition-delay: 0s; transform: rotate(calc(var(--rot) - 4deg)) translate(-6px, -8px); }
   .js .collage.is-visible:hover .collage-agenda  { transition-delay: 0s; transform: rotate(calc(var(--rot) + 4deg)) translate(6px, -8px); }
+}
+
+
+/* Onboarding variant: gif top-left, postcard gif tilted in front at bottom-right */
+.collage--onboarding { aspect-ratio: 4 / 3; }
+.collage--onboarding .collage-main { left: 0; right: auto; top: 0; bottom: auto; width: 74%; z-index: 2; }
+.collage--onboarding .collage-postcard { right: 0; bottom: 0; width: 58%; z-index: 3; }
+@media (hover: hover) {
+  .js .collage--onboarding.is-visible:hover .collage-postcard { transition-delay: 0s; transform: rotate(calc(var(--rot) + 4deg)) translate(8px, 8px); }
 }
 
 /* ---------- Resume ---------- */

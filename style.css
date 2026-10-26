@@ -122,6 +122,7 @@ a { color: var(--heading); }
 .project-card {
   padding: 2rem 1.5rem;
   box-shadow: var(--shadow-card);
+  container-type: inline-size;      /* lets the title size itself to the card, not the screen */
 }
 .project--green .project-card { background: var(--bg); color: var(--text); }
 .project--cream .project-card { background: var(--green); color: var(--on-green); }
@@ -135,13 +136,17 @@ a { color: var(--heading); }
   margin-bottom: 1.25rem;
 }
 .project-head h3 {
-  font-size: clamp(1.9rem, 7vw, 3.6rem);
+  font-size: clamp(1.6rem, 8.5cqi, 3.6rem);
   font-weight: 400;
   margin: 0;
   min-width: 0;
-  overflow-wrap: anywhere;
+  /* wrap between words only, never inside one */
+  overflow-wrap: normal;
+  word-break: keep-all;
+  hyphens: none;
+  text-wrap: balance;
 }
-.doodle { width: clamp(6.5rem, 24vw, 13rem); flex-shrink: 0; }
+.doodle { flex: 0 0 clamp(5.5rem, 32%, 13rem); width: clamp(5.5rem, 32%, 13rem); }
 .project-card p { margin: 0; max-width: 60ch; }
 
 
@@ -161,6 +166,43 @@ a { color: var(--heading); }
   aspect-ratio: 16 / 9;
   border: 0;
   background: #000;
+}
+
+
+/* ---------- Basecamp collage: gif in front, two images popping in behind ---------- */
+.collage {
+  position: relative;
+  max-height: none;
+  filter: none;
+  aspect-ratio: 5 / 4;
+  width: 100%;
+}
+.collage img { position: absolute; height: auto; }
+
+.collage-main {
+  left: 8%; bottom: 0;
+  width: 88%;
+  z-index: 2;
+  transform: rotate(-1.5deg);
+  filter: var(--shadow-image);
+}
+.collage-back { z-index: 1; filter: var(--shadow-image); }
+.collage-almanac { left: 0;   top: 0;  width: 44%; }
+.collage-agenda  { right: 2%; top: 1%; width: 36%; }
+
+/* pop-in: start small and spinning, overshoot into a slight tilt */
+.js .collage-back {
+  opacity: 0;
+  transform: scale(0.2) rotate(calc(var(--rot) - 40deg));
+  transition: opacity 0.4s ease var(--d, 0.5s),
+              transform 0.9s var(--ease-pop) var(--d, 0.5s);
+}
+.js .collage.is-visible .collage-back { opacity: 1; transform: rotate(var(--rot)); }
+
+/* little wiggle on hover */
+@media (hover: hover) {
+  .js .collage.is-visible:hover .collage-almanac { transition-delay: 0s; transform: rotate(calc(var(--rot) - 4deg)) translate(-6px, -8px); }
+  .js .collage.is-visible:hover .collage-agenda  { transition-delay: 0s; transform: rotate(calc(var(--rot) + 4deg)) translate(6px, -8px); }
 }
 
 /* ---------- Resume ---------- */
@@ -272,13 +314,16 @@ footer p { margin: 0; }
   .hero-text { padding: 2.5rem 3rem 3rem; align-self: center; }
   .hero-photo video { min-height: 0; }
 
+}
+
+@media (min-width: 900px) {
   .project { padding: 4rem 3rem; }
   .project-inner {
     grid-template-columns: repeat(2, minmax(0, 1fr));   /* image | card, side by side */
     gap: 3.5rem;
   }
   .project-img { max-height: 28rem; }
-  .project-card { padding: 3rem 3.5rem; }
+  .project-card { padding: 2.5rem 2.25rem; }
 
   /* every other project flips: card on the left, image on the right */
   .project--cream .project-img { order: 2; }
@@ -312,7 +357,7 @@ footer p { margin: 0; }
   transition: opacity 0.8s var(--ease-out), transform 0.9s var(--ease-out);
   transform: translateY(40px);
 }
-@media (min-width: 768px) {
+@media (min-width: 900px) {
   .js .project--green .project-img  { transform: translateX(-80px); }
   .js .project--green .project-card { transform: translateX(80px);  transition-delay: 0.15s; }
   .js .project--cream .project-img  { transform: translateX(80px); }
@@ -340,6 +385,7 @@ footer p { margin: 0; }
 /* --- Reduced motion: show everything, no movement --- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
+  .js .collage-back { opacity: 1 !important; transform: rotate(var(--rot)) !important; transition: none !important; }
   .js .hero *, .js .hero-photo { animation: none !important; }
   .js .reveal, .js .project-head h3, .js .project-card p, .js .doodle {
     opacity: 1 !important; transform: none !important; transition: none !important;

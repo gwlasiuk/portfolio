@@ -81,21 +81,24 @@ a { color: var(--heading); }
 }
 .hero p { max-width: 60ch; }
 
+/* Full-bleed hero video: fills the whole panel, no border (like a background-size: cover image) */
 .hero-photo {
-  display: flex; align-items: center; justify-content: center;
-  padding: 0.5rem 1.25rem 2.5rem;
-}
-/* Framed, uncropped 16:9 player: the whole video always shows */
-.hero-frame {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  background: #000;
-  border: 8px solid var(--green);
-  border-radius: 6px;
-  box-shadow: var(--shadow-card);
+  position: relative;
   overflow: hidden;
+  background: #000;
+  aspect-ratio: 16 / 9;            /* phones: a full-width 16:9 band */
+  container-type: size;            /* lets the iframe size itself to the panel (cqw / cqh units) */
 }
-.hero-frame iframe { display: block; width: 100%; height: 100%; border: 0; }
+.hero-frame { position: absolute; inset: 0; }
+.hero-frame iframe {
+  position: absolute; top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%; height: 100%;                      /* fallback */
+  width:  max(100cqw, calc(100cqh * 16 / 9));     /* scale up until it covers the panel */
+  height: max(100cqh, calc(100cqw * 9 / 16));
+  border: 0;
+  pointer-events: none;                           /* decorative loop: no player controls popping up on hover */
+}
 
 .button {
   display: inline-block;
@@ -374,9 +377,9 @@ footer a:hover { color: var(--accent); }
 @media (min-width: 768px) {
   .site-header { padding: 0.6rem 2.5rem; }
 
-  .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); min-height: 36rem; }
+  .hero { grid-template-columns: repeat(2, minmax(0, 1fr)); min-height: 36rem; }
   .hero-text { padding: 2.5rem 3rem 3rem; align-self: center; }
-  .hero-photo { padding: 2.5rem 3rem 2.5rem 0; }
+  .hero-photo { aspect-ratio: auto; }
 
 }
 
@@ -391,6 +394,10 @@ footer a:hover { color: var(--accent); }
 
   /* every other project flips: card on the left, image on the right */
   .project--cream .project-img { order: 2; }
+}
+
+@media (min-width: 1100px) {
+  .hero { grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); }   /* slightly wider video */
 }
 
 @media (min-width: 1200px) {

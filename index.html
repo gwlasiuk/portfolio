@@ -27,7 +27,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,700&family=Mulish:wght@400;600&display=swap" rel="stylesheet">
 
   <script>document.documentElement.classList.add("js");</script>
-  <link rel="stylesheet" href="style.css?v=8">
+  <link rel="stylesheet" href="style.css?v=9">
 </head>
 <body>
 
@@ -61,7 +61,7 @@
       </div>
       <div class="hero-photo">
         <div class="hero-frame">
-          <iframe src="https://player.vimeo.com/video/1239595251?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1&amp;loop=1"
+          <iframe src="https://player.vimeo.com/video/1239595251?badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479&amp;autoplay=1&amp;muted=1&amp;loop=1&amp;background=1"
                   title="Portfolio highlight reel"
                   allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share"
                   referrerpolicy="strict-origin-when-cross-origin"
@@ -321,7 +321,10 @@
       // Don't autoplay the hero video for people who prefer reduced motion
       if (reduce) {
         var f = document.querySelector(".hero-frame iframe");
-        if (f) { f.src = f.src.replace("autoplay=1", "autoplay=0").replace("loop=1", "loop=0"); }
+        if (f) {
+          f.src = f.src.replace("autoplay=1", "autoplay=0").replace("loop=1", "loop=0").replace("&background=1", "");
+          f.style.pointerEvents = "auto";   // let them press play
+        }
       }
     })();
   </script>

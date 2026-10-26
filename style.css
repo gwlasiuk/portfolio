@@ -209,12 +209,21 @@ a { color: var(--heading); }
 }
 
 
-/* Onboarding variant: gif top-left, postcard gif tilted in front at bottom-right */
-.collage--onboarding { aspect-ratio: 4 / 3; }
-.collage--onboarding .collage-main { left: 0; right: auto; top: 0; bottom: auto; width: 74%; z-index: 2; }
-.collage--onboarding .collage-postcard { right: 0; bottom: 0; width: 58%; z-index: 3; }
+/* Onboarding variant: tall gif at right, postcard tucked behind it at left.
+   Both are sized by HEIGHT (the main gif is portrait), so they always fit the box. */
+.collage--onboarding { aspect-ratio: 5 / 4; }
+.collage--onboarding .collage-main {
+  left: auto; right: 2%; top: 4%; bottom: auto;
+  height: 92%; width: auto; max-width: none;
+  z-index: 2;
+}
+.collage--onboarding .collage-postcard {
+  left: 0; right: auto; top: 14%; bottom: auto;
+  height: 74%; width: auto; max-width: none;
+  z-index: 1;
+}
 @media (hover: hover) {
-  .js .collage--onboarding.is-visible:hover .collage-postcard { transition-delay: 0s; transform: rotate(calc(var(--rot) + 4deg)) translate(8px, 8px); }
+  .js .collage--onboarding.is-visible:hover .collage-postcard { transition-delay: 0s; transform: rotate(calc(var(--rot) - 4deg)) translate(-8px, 6px); }
 }
 
 /* ---------- Resume ---------- */

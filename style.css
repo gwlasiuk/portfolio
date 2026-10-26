@@ -150,7 +150,7 @@ a { color: var(--heading); }
   hyphens: none;
   text-wrap: balance;
 }
-.doodle { flex: 0 0 clamp(5.5rem, 35%, 13rem); width: clamp(5.5rem, 35%, 13rem); }
+.doodle { flex: 0 0 clamp(5.5rem, 32%, 13rem); width: clamp(5.5rem, 32%, 13rem); }
 .project-card p { margin: 0; max-width: 60ch; }
 
 
